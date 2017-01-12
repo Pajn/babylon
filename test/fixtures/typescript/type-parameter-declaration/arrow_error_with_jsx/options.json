@@ -1,0 +1,4 @@
+{
+  "plugins": ["ts", "jsx"],
+  "throws": "Unterminated JSX contents (1:3)"
+}

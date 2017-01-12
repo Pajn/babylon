@@ -55,9 +55,10 @@ export default class Parser extends Tokenizer {
   }
 
   loadAllPlugins() {
-    // ensure flow plugin loads last
-    const pluginNames = Object.keys(plugins).filter((name) => name !== "flow");
+    // ensure flow and ts plugins loads last
+    const pluginNames = Object.keys(plugins).filter((name) => name !== "flow" || name !== "ts");
     pluginNames.push("flow");
+    pluginNames.push("ts");
 
     pluginNames.forEach((name) => {
       const plugin = plugins[name];
@@ -79,6 +80,12 @@ export default class Parser extends Tokenizer {
       // ensure flow plugin loads last
       pluginList = pluginList.filter((plugin) => plugin !== "flow");
       pluginList.push("flow");
+    }
+
+    if (pluginList.indexOf("ts") >= 0) {
+      // ensure ts plugin loads last
+      pluginList = pluginList.filter((plugin) => plugin !== "ts");
+      pluginList.push("ts");
     }
 
     for (const name of pluginList) {
